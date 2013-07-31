@@ -16,9 +16,11 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "java"
-include_recipe "runit"
+# include recipes we depend on
+%w(ark java runit).each { |recipe| include_recipe recipe }
 
+# install dependency packages
+%w{unzip python}.each { |pkg| package(pkg) { action :install } }
 
 install_dir = "#{node['storm']['root_dir']}/storm-#{node['storm']['version']}"
 
@@ -27,24 +29,31 @@ node.set['storm']['conf_dir'] = "#{install_dir}/conf"
 node.set['storm']['bin_dir'] = "#{install_dir}/bin"
 node.set['storm']['install_dir'] = install_dir
 
-# install dependency packages
-%w{unzip python zeromq jzmq}.each do |pkg|
-  package pkg do
-    action :install
-  end
-end
 
 #locate the nimbus for this storm cluster
-if node.recipes.include?("storm::nimbus")
+nimbus_host = Array.new
+if node.recipes.include?('storm::nimbus')
   nimbus_host = node
 else
-  nimbus_host = search(:node, "role:storm_nimbus AND role:#{node['storm']['cluster_role']} AND chef_environment:#{node.chef_environment}").first
+  begin
+    nimbus_host = search(:node, "role:storm_nimbus AND role:#{node['storm']['cluster_role']} AND chef_environment:#{node.chef_environment}").first
+  rescue Exception => e
+    # search doesn't work in OpsWorks or Chef Solo
+    Chef::Log.info("problem with search: #{e.message} using value found in node: #{node[:storm][:nimbus][:host]}")
+    nimbus_host = node[:storm][:nimbus][:host]
+  end
 end
 
 # search for zookeeper servers
 zookeeper_quorum = Array.new
-search(:node, "role:zookeeper AND chef_environment:#{node.chef_environment}").each do |n|
-	zookeeper_quorum << n[:fqdn]
+begin
+  search(:node, "role:zookeeper AND chef_environment:#{node.chef_environment}").each do |n|
+    zookeeper_quorum << n[:fqdn]
+  end
+rescue Exception => e
+  # search doesn't work in OpsWorks or Chef Solo
+  Chef::Log.info("problem finding zookeeper via search: \"#{e.message}\" using value found in node: #{node[:storm][:zookeeper][:quorum]}")
+  zookeeper_quorum = node[:storm][:zookeeper][:quorum]
 end
 
 # setup storm group
@@ -59,10 +68,23 @@ user "storm" do
   supports :manage_home => true
 end
 
+ark 'storm' do
+  action :install
+  owner 'storm'
+  group 'storm'
+  mode   00755
+
+  url         "#{node['storm']['download_url']}/storm-#{node['storm']['version']}.zip"
+  version     node['storm']['version']
+  path        node['storm']['root_dir']
+  prefix_root node['storm']['root_dir']
+  home_dir    "#{node['storm']['root_dir']}/current"
+end
+
 # storm looks for storm.yaml in ~/.storm/storm.yaml so make a link
 link "/home/storm/.storm" do
   to node['storm']['conf_dir']
-end 
+end
 
 # setup directories
 %w{conf_dir local_dir log_dir install_dir bin_dir}.each do |name|
@@ -74,29 +96,6 @@ end
   end
 end
 
-# download storm
-remote_file "#{Chef::Config[:file_cache_path]}/storm-#{node[:storm][:version]}.tar.gz" do
-  source "#{node['storm']['download_url']}/storm-#{node['storm']['version']}.tar.gz"
-  owner  "storm"
-  group  "storm"
-  mode   00744
-  action :create_if_missing
-end
-
-# uncompress the application tarball into the install directory
-execute "tar" do
-  user    "storm"
-  group   "storm"
-  creates node['storm']['lib_dir']
-  cwd     node['storm']['root_dir']
-  command "tar zxvf #{Chef::Config[:file_cache_path]}/storm-#{node['storm']['version']}.tar.gz"
-end
-
-# create a link from the specific version to a generic current folder
-link "#{node['storm']['root_dir']}/current" do
-	to node['storm']['install_dir']
-end
-
 # storm.yaml
 template "#{node['storm']['conf_dir']}/storm.yaml" do
   source "storm.yaml.erb"
@@ -104,17 +103,6 @@ template "#{node['storm']['conf_dir']}/storm.yaml" do
   variables(
     :nimbus => nimbus_host,
     :zookeeper_quorum => zookeeper_quorum
-  )
-end
-
-# sets up storm users profile
-template "/home/storm/.profile" do
-  owner  "storm"
-  group  "storm"
-  source "profile.erb"
-  mode   00644
-  variables(
-    :storm_dir => node['storm']['install_dir']
   )
 end
 
