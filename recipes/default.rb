@@ -73,6 +73,7 @@ ark 'storm' do
   owner 'storm'
   group 'storm'
   mode   00755
+  append_env_path true
 
   url         "#{node['storm']['download_url']}/storm-#{node['storm']['version']}.zip"
   version     node['storm']['version']
