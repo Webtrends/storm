@@ -4,12 +4,15 @@
 ## 1.2.6
 * Cleaned up food critic warnings
 * Made default version 0.8.2
+* use ark for downloading and decompressing archive
+* fallback on node config if search is unavailable to support chef solo (and aws opsworks)
+* use ark `append_env_path` instead of custom template to append to env
 
 ## 1.2.5
 * Fixing path in supervisor runit script
 
 ## 1.2.4
-* Added conf creation to the list of dirs to creat
+* Added conf creation to the list of dirs to create
 
 ## 1.2.3
 * Changed default ZooKeeper Settings
@@ -19,7 +22,7 @@
 * Changed remote_file to use :create_if_missing
 
 ## 1.2.1
-* Updated run_list to recipe for determing nimbus node
+* Updated run_list to recipe for determining nimbus node
 
 ## 1.2.0
 * Changes to set node data for topologies to use
@@ -56,7 +59,7 @@
 
 ## 1.0.26
 * Cleans out the state of only the previous runs supervisors, but not the workers.
-  Removing the workers state caused supsequent supervisors to bitch about not
+  Removing the workers state caused subsequent supervisors to bitch about not
   being able to remove the pid files from /mnt/storm/work/XXX/pids without
   end.
 
@@ -65,7 +68,7 @@
 * Adding default attribute for the storm version
 
 ## 1.0.24
-* Removed the 'force-stop' call since it is not suported by the 'service' command
+* Removed the 'force-stop' call since it is not supported by the 'service' command
 
 ## 1.0.23
 * Added undeploy scripts.
