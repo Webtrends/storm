@@ -16,6 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+node.set['storm']['nimbus']['host'] = node['fqdn']
+
 include_recipe "apache_storm"
 
 java_home = node['java']['java_home']
@@ -45,5 +47,8 @@ java_home = node['java']['java_home']
 end
 
 service "nimbus"
-
 service "stormui"
+
+t = resources(:template => "#{node['storm']['conf_dir']}/storm.yaml")
+t.notifies :restart, "service[nimbus]"
+t.notifies :restart, "service[stormui]"
