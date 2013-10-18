@@ -72,21 +72,21 @@ end
 end
 
 # download storm
-remote_file "#{Chef::Config[:file_cache_path]}/storm-#{node[:storm][:version]}.tar.gz" do
-  source "#{node['storm']['download_url']}/storm-#{node['storm']['version']}.tar.gz"
+remote_file "#{Chef::Config[:file_cache_path]}/storm-#{node[:storm][:version]}.zip" do
+  source "#{node['storm']['download_url']}/storm-#{node['storm']['version']}.zip"
   owner  "storm"
   group  "storm"
-  mode   00744
+  mode   00644
   action :create_if_missing
 end
 
 # uncompress the application tarball into the install directory
-execute "tar" do
+execute "extract_storm" do
   user    "storm"
   group   "storm"
   creates node['storm']['lib_dir']
   cwd     node['storm']['root_dir']
-  command "tar zxvf #{Chef::Config[:file_cache_path]}/storm-#{node['storm']['version']}.tar.gz"
+  command "unzip #{Chef::Config[:file_cache_path]}/storm-#{node['storm']['version']}.zip"
 end
 
 # create a link from the specific version to a generic current folder
