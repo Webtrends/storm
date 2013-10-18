@@ -16,19 +16,23 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+case node['platform_family']
+  when "debian"
+   include_recipe "apt"
+end
+
+include_recipe "et_jzmq"
 include_recipe "java"
 include_recipe "runit"
 
+node.set['storm']['install_dir'] = "#{node['storm']['root_dir']}/storm-#{node['storm']['version']}"
 
-install_dir = "#{node['storm']['root_dir']}/storm-#{node['storm']['version']}"
-
-node.set['storm']['lib_dir'] = "#{install_dir}/lib"
-node.set['storm']['conf_dir'] = "#{install_dir}/conf"
-node.set['storm']['bin_dir'] = "#{install_dir}/bin"
-node.set['storm']['install_dir'] = install_dir
+node.set['storm']['lib_dir'] = "#{node['storm']['install_dir']}/lib"
+node.set['storm']['conf_dir'] = "#{node['storm']['install_dir']}/conf"
+node.set['storm']['bin_dir'] = "#{node['storm']['install_dir']}/bin"
 
 # install dependency packages
-%w{unzip python zeromq jzmq}.each do |pkg|
+%w{unzip python}.each do |pkg|
   package pkg do
     action :install
   end
@@ -62,7 +66,13 @@ link "/home/storm/.storm" do
 end
 
 # setup directories
-%w{conf_dir local_dir log_dir install_dir bin_dir}.each do |name|
+%w{
+  conf_dir
+  local_dir
+  log_dir
+  install_dir
+  bin_dir
+}.each do |name|
   directory node['storm'][name] do
     owner "storm"
     group "storm"
@@ -99,7 +109,6 @@ template "#{node['storm']['conf_dir']}/storm.yaml" do
   source "storm.yaml.erb"
   mode 00644
   variables(
-    :nimbus => nimbus_host,
     :zookeeper_quorum => zookeeper_quorum
   )
 end
