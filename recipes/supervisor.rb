@@ -16,34 +16,34 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "storm"
+include_recipe 'storm'
 
 java_home = node['java']['java_home']
 
   # control file
   template "#{node['storm']['install_dir']}/bin/supervisor-control" do
-    source  "supervisor-control.erb"
+    source  'supervisor-control.erb'
     mode  00755
-    variables({
+    variables(
       :install_dir => node['storm']['install_dir'],
       :log_dir => node['storm']['log_dir'],
       :java_home => java_home
-    })
+    )
   end
 
   # runit service
-  runit_service "supervisor" do
-    service_name "supervisor"
-    options({
+  runit_service 'supervisor' do
+    service_name 'supervisor'
+    options(
       :install_dir => "#{node['storm']['root_dir']}/current",
       :log_dir => node['storm']['log_dir'],
-      :user => "storm"
-    })
+      :user => 'storm'
+    )
   end
 
-execute "reload_supervisor" do
-  command "sv reload supervisor"
+execute 'reload_supervisor' do
+  command 'sv reload supervisor'
   action :nothing
 end
 
-service "supervisor"
+service 'supervisor'
