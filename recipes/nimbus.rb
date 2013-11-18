@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "storm"
+include_recipe 'storm'
 
 java_home = node['java']['java_home']
 
@@ -24,26 +24,26 @@ java_home = node['java']['java_home']
   # control file
   template "#{node['storm']['install_dir']}/bin/#{daemon}-control" do
     source  "#{daemon}-control.erb"
-    owner "root"
-    group "root"
+    owner 'root'
+    group 'root'
     mode  00755
-    variables({
+    variables(
       :install_dir => node['storm']['install_dir'],
       :log_dir => node['storm']['log_dir'],
       :java_home => java_home
-    })
+    )
   end
 
   # runit service
   runit_service daemon do
-    options({
+    options(
       :install_dir => node['storm']['install_dir'],
       :log_dir => node['storm']['log_dir'],
-      :user => "storm"
-    })
+      :user => 'storm'
+    )
   end
 end
 
-service "nimbus"
+service 'nimbus'
 
-service "stormui"
+service 'stormui'
