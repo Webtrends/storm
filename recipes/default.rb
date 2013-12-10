@@ -58,6 +58,7 @@ if node.roles.include?(node['storm']['nimbus']['nimbus_search_role'])
 else
   nimbus_node = search(:node, node['storm']['nimbus']['node_search_str'] + " AND chef_environment:#{node.chef_environment}")
   node.set['storm']['nimbus']['host'] = nimbus_node.first[:fqdn] if nimbus_node != []
+  raise('Nimbus host not found') if nimbus_host.empty?
 end
 
 
