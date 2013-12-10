@@ -21,8 +21,22 @@ case node['platform_family']
    include_recipe "apt"
 end
 
+include_recipe "git"
 include_recipe "et_jzmq"
 include_recipe "java"
+
+# Forcefully update the system-default Java using "alternatives."
+# This is--unfortunately--necessary because storm's start script
+# cannot be configured to use a specific Java executable.
+
+if platform_family?('debian', 'rhel', 'fedora') &&
+  java_location = "#{node['java']['java_home']}/jre/bin/java"
+  execute 'force-update-java-alternatives' do
+    command "update-alternatives --set java #{java_location}"
+    only_if "update-alternatives --display java | grep '#{java_location} - priority '"
+  end
+end
+
 include_recipe "runit"
 
 node.set['storm']['install_dir'] = "#{node['storm']['root_dir']}/storm-#{node['storm']['version']}"

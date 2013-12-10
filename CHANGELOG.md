@@ -1,3 +1,10 @@
+## 2.0.3
+* Force-update java alternatives
+* Revert to using fqdns for zookeeper servers
+
+## 2.0.2
+* Use ipaddress for zookeeper servers
+
 ## 2.0.0
 * Notice (and raise on) empty zookeeper quorum
 * Always use self as nimbus server if nimbus role is set locally
