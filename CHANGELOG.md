@@ -1,3 +1,6 @@
+## 2.0.5
+* Fix typo in determining Nimbus node exception
+
 ## 2.0.4
 * Raise exception if Nimbus node isn’t found
 
