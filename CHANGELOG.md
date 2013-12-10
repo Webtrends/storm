@@ -1,3 +1,6 @@
+## 2.0.4
+* Raise exception if Nimbus node isn’t found
+
 ## 2.0.3
 * Force-update java alternatives
 * Revert to using fqdns for zookeeper servers
