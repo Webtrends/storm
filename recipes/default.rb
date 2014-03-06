@@ -29,7 +29,7 @@ include_recipe "java"
 # This is--unfortunately--necessary because storm's start script
 # cannot be configured to use a specific Java executable.
 
-if platform_family?('debian', 'rhel', 'fedora') &&
+if platform_family?('debian', 'rhel', 'fedora')
   java_location = "#{node['java']['java_home']}/jre/bin/java"
   execute 'force-update-java-alternatives' do
     command "update-alternatives --set java #{java_location}"
