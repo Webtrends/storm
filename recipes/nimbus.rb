@@ -16,8 +16,6 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-node.set['storm']['nimbus']['host'] = node['fqdn']
-
 include_recipe 'apache_storm'
 
 java_home = node['java']['java_home']

@@ -53,14 +53,14 @@ end
 
 # locate the nimbus for this storm cluster
 if node.roles.include?(node['storm']['nimbus']['nimbus_search_role'])
-  node.set['storm']['nimbus']['host'] = node[:fqdn]
+  node.set['storm']['yaml']['nimbus.host'] = node[:fqdn]
 else
   nimbus_node = search(
     :node,
     node['storm']['nimbus']['node_search_str'] +
     " AND chef_environment:#{node.chef_environment}"
   )
-  node.set['storm']['nimbus']['host'] = nimbus_node.first[:fqdn] if nimbus_node != []
+  node.set['storm']['yaml']['nimbus.host'] = nimbus_node.first[:fqdn] if nimbus_node != []
   fail('Nimbus host not found') if nimbus_node.empty?
 end
 
@@ -92,7 +92,6 @@ end
 # setup directories
 %w(
   conf_dir
-  local_dir
   log_dir
   install_dir
   bin_dir
@@ -103,6 +102,13 @@ end
     action :create
     recursive true
   end
+end
+
+directory node['storm']['yaml']['storm.local.dir'] do
+  owner 'storm'
+  group 'storm'
+  action :create
+  recursive true
 end
 
 # download storm
