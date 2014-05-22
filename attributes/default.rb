@@ -11,7 +11,6 @@ default['storm']['cluster_role'] = ''
 # general storm attributes
 default['storm']['java_lib_path'] = '/usr/local/lib:/opt/local/lib:/usr/lib'
 default['storm']['local_dir'] = '/mnt/storm'
-default['storm']['local_mode_zmq'] = 'false'
 default['storm']['cluster_mode'] = 'distributed'
 
 # worker attributes
