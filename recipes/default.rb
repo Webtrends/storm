@@ -22,7 +22,6 @@ when 'debian'
 end
 
 include_recipe 'git'
-include_recipe 'et_jzmq'
 include_recipe 'java'
 
 # Forcefully update the system-default Java using "alternatives."
@@ -39,7 +38,7 @@ end
 
 include_recipe 'runit'
 
-node.set['storm']['install_dir'] = "#{node['storm']['root_dir']}/storm-#{node['storm']['version']}"
+node.set['storm']['install_dir'] = "#{node['storm']['root_dir']}/apache-storm-#{node['storm']['version']}"
 
 node.set['storm']['lib_dir'] = "#{node['storm']['install_dir']}/lib"
 node.set['storm']['conf_dir'] = "#{node['storm']['install_dir']}/conf"
@@ -107,8 +106,8 @@ end
 end
 
 # download storm
-remote_file "#{Chef::Config[:file_cache_path]}/storm-#{node[:storm][:version]}.zip" do
-  source "#{node['storm']['download_url']}/storm-#{node['storm']['version']}.zip"
+remote_file "#{Chef::Config[:file_cache_path]}/storm-#{node[:storm][:version]}.tar.gz" do
+  source node['storm']['download_url']
   owner  'storm'
   group  'storm'
   mode   00644
@@ -121,7 +120,7 @@ execute 'extract_storm' do
   group   'storm'
   creates node['storm']['lib_dir']
   cwd     node['storm']['root_dir']
-  command "unzip #{Chef::Config[:file_cache_path]}/storm-#{node['storm']['version']}.zip"
+  command "tar xzf #{Chef::Config[:file_cache_path]}/storm-#{node['storm']['version']}.tar.gz"
 end
 
 # create a link from the specific version to a generic current folder
