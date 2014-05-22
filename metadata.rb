@@ -8,5 +8,6 @@ version          '2.0.5'
 depends          'git'
 depends          'java'
 depends          'runit'
+depends          'apt'
 
 supports         'ubuntu'
