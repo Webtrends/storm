@@ -5,3 +5,4 @@ default['storm']['supervisor']['worker_timeout_secs'] = 30
 default['storm']['supervisor']['monitor_frequecy_secs'] = 3
 default['storm']['supervisor']['heartbeat_frequency_secs'] = 5
 default['storm']['supervisor']['enable'] = true
+default['storm']['supervisor']['fdlimit'] = 65_535

@@ -11,3 +11,4 @@ default['storm']['nimbus']['inbox_jar_expiration_secs'] = 3600
 default['storm']['nimbus']['task_launch_secs'] = 120
 default['storm']['nimbus']['reassign'] = true
 default['storm']['nimbus']['file_copy_expiration_secs'] = 600
+default['storm']['nimbus']['fdlimit'] = 65_535
