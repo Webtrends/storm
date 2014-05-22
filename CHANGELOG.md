@@ -1,3 +1,14 @@
+## 3.0.0
+
+* Add apt dependency
+* Upgrade to the storm 0.9.1 apache package, dropping the use of JZMQ in favor of the built-in queuer
+* Add fdlimit attribute to supervisor and nimbus startup
+* Move attributes for supervisor, zookeeper, and nimbus to their own files
+* Linting cleanup
+* Not using vagrant anymore
+* Remove platforms we do not test on
+* Kill extraneous and-operator
+
 ## 2.0.5
 * Fix typo in determining Nimbus node exception
 
