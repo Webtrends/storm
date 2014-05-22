@@ -22,7 +22,7 @@ include_recipe 'apache_storm'
 
 java_home = node['java']['java_home']
 
-%w{nimbus stormui}.each do |daemon|
+%w(nimbus stormui).each do |daemon|
   # control file
   template "#{node['storm']['install_dir']}/bin/#{daemon}-control" do
     source  "#{daemon}-control.erb"

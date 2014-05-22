@@ -45,7 +45,7 @@ node.set['storm']['conf_dir'] = "#{node['storm']['install_dir']}/conf"
 node.set['storm']['bin_dir'] = "#{node['storm']['install_dir']}/bin"
 
 # install dependency packages
-%w{unzip python}.each do |pkg|
+%w(unzip python).each do |pkg|
   package pkg do
     action :install
   end
@@ -90,13 +90,13 @@ link '/home/storm/.storm' do
 end
 
 # setup directories
-%w{
+%w(
   conf_dir
   local_dir
   log_dir
   install_dir
   bin_dir
-}.each do |name|
+).each do |name|
   directory node['storm'][name] do
     owner 'storm'
     group 'storm'
