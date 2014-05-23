@@ -2,6 +2,9 @@ source 'http://api.berkshelf.com'
 
 metadata
 
-cookbook 'et_swap',
-         git: 'git@github.com:evertrue/et_swap-cookbook.git',
-         tag: 'v1.0.1'
+group :integration do
+  cookbook 'et_hostname',
+           github: 'evertrue/et_hostname-cookbook',
+           tag: 'v1.0.3'
+  cookbook 'zookeeper', '~> 1.6'
+end

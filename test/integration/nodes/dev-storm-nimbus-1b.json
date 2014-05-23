@@ -1,0 +1,20 @@
+{
+  "name": "dev-storm-nimbus-1b",
+  "chef_environment": "dev",
+  "run_list": [
+    "recipe[et_base]",
+    "recipe[et_storm_nimbus]",
+    "role[storm_nimbus]"
+  ],
+  "automatic": {
+    "fqdn": "dev-storm-nimbus-1b.priv.evertrue.com",
+    "ipaddress": "10.99.5.94",
+    "recipes": [
+      "storm",
+      "et_storm_nimbus"
+    ],
+    "roles": [
+      "storm_nimbus"
+    ]
+  }
+}

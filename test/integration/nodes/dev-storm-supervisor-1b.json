@@ -1,0 +1,12 @@
+{
+  "name": "dev-storm-supervisor-1b",
+  "chef_environment": "dev",
+  "automatic": {
+    "fqdn": "dev-storm-supervisor-1b.priv.evertrue.com",
+    "ipaddress": "10.99.5.206",
+    "recipes": [
+      "storm",
+      "et_storm_supervisor"
+    ]
+  }
+}
