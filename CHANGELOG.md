@@ -1,3 +1,7 @@
+## 2.0.0
+* Notice (and raise on) empty zookeeper quorum
+* Always use self as nimbus server if nimbus role is set locally
+
 ## 1.2.6
 * Cleaned up food critic warnings
 * Made default version 0.8.2
