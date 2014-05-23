@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: storm
+# Cookbook Name:: apache_storm
 # Recipe:: default
 #
-# Copyright 2012, Webtrends, Inc.
+# Copyright 2014, EverTrue, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -35,7 +35,7 @@ node.set['storm']['install_dir'] = install_dir
 end
 
 #locate the nimbus for this storm cluster
-if node.recipes.include?("storm::nimbus")
+if node.recipes.include?("apache_storm::nimbus")
   nimbus_host = node
 else
   nimbus_host = search(:node, "role:storm_nimbus AND role:#{node['storm']['cluster_role']} AND chef_environment:#{node.chef_environment}").first
@@ -62,7 +62,7 @@ end
 # storm looks for storm.yaml in ~/.storm/storm.yaml so make a link
 link "/home/storm/.storm" do
   to node['storm']['conf_dir']
-end 
+end
 
 # setup directories
 %w{conf_dir local_dir log_dir install_dir bin_dir}.each do |name|

@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: storm
-# Recipe:: default
+# Cookbook Name:: apache_storm
+# Recipe:: supervisor
 #
-# Copyright 2012, Webtrends, Inc.
+# Copyright 2014, EverTrue, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,7 +16,7 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "storm"
+include_recipe 'apache_storm'
 
 java_home = node['java']['java_home']
 

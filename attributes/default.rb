@@ -1,11 +1,3 @@
-#
-# Author:: Sean McNamara (<sean.mcnamara@webtrends.com>)
-# Cookbook Name:: storm
-# Attribute:: default
-#
-# Copyright 2012, Webtrends Inc.
-#
-
 default['storm']['version'] = "0.8.2"
 default['storm']['root_dir'] = "/opt/storm"
 default['storm']['log_dir'] = "/var/log/storm"
