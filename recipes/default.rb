@@ -48,6 +48,10 @@ zookeeper_quorum = search(:node, "#{node['storm']['zookeeper']['node_search_str'
 	n[:fqdn]
 }
 
+if zookeeper_quorum.empty?
+  raise "zookeeper_quorum contains no servers."
+end
+
 # setup storm group
 group "storm"
 
