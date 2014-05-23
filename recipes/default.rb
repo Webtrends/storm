@@ -47,6 +47,10 @@ search(:node, "role:zookeeper AND chef_environment:#{node.chef_environment}").ea
 	zookeeper_quorum << n[:fqdn]
 end
 
+if zookeeper_quorum.empty?
+  raise "zookeeper_quorum contains no servers."
+end
+
 # setup storm group
 group "storm"
 
