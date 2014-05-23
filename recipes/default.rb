@@ -39,9 +39,13 @@ node.set['storm']['bin_dir'] = "#{node['storm']['install_dir']}/bin"
 end
 
 #locate the nimbus for this storm cluster
-nimbus_node = search(:node, node['storm']['nimbus']['node_search_str'] + " AND chef_environment:#{node.chef_environment}").first[:fqdn]
+if node.roles.include?(node['storm']['nimbus']['nimbus_search_role'])
+  node.set['storm']['nimbus']['host'] = node[:fqdn]
+else
+  nimbus_node = search(:node, node['storm']['nimbus']['node_search_str'] + " AND chef_environment:#{node.chef_environment}")
+  node.set['storm']['nimbus']['host'] = nimbus_node.first[:fqdn] if nimbus_node != []
+end
 
-node.set['storm']['nimbus']['host'] = nimbus_node if nimbus_node != []
 
 # search for zookeeper servers
 zookeeper_quorum = search(:node, "#{node['storm']['zookeeper']['node_search_str']} AND chef_environment:#{node.chef_environment}").map { |n|

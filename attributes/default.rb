@@ -36,7 +36,8 @@ default['storm']['zmq']['threads'] = 1
 default['storm']['zmq']['longer_millis'] = 5000
 
 # nimbus attributes
-default['storm']['nimbus']['node_search_str'] = "role:storm_nimbus"
+default['storm']['nimbus']['nimbus_search_role'] = "storm_nimbus"
+default['storm']['nimbus']['node_search_str'] = "role:#{node['storm']['nimbus']['nimbus_search_role']}"
 default['storm']['nimbus']['thrift_port'] = 6627
 default['storm']['nimbus']['childopts'] = "-Xmx1024m"
 default['storm']['nimbus']['task_timeout_secs'] = 30
