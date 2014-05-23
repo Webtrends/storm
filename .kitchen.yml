@@ -1,0 +1,18 @@
+---
+driver:
+  name: vagrant
+  require_chef_omnibus: true
+
+provisioner:
+  name: chef_zero
+
+platforms:
+- name: ubuntu-12.04
+- name: ubuntu-10.04
+- name: centos-6.4
+- name: centos-5.9
+
+suites:
+- name: default
+  run_list: ["recipe[storm]"]
+  attributes: {}
