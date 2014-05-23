@@ -16,6 +16,8 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+fail 'This cookbook does not work with chef-solo' if Chef::Config[:solo]
+
 case node['platform_family']
 when 'debian'
   include_recipe 'apt'
@@ -52,15 +54,15 @@ node.set['storm']['bin_dir'] = "#{node['storm']['install_dir']}/bin"
 end
 
 # locate the nimbus for this storm cluster
-if node.roles.include?(node['storm']['nimbus']['nimbus_search_role'])
-  node.set['storm']['yaml']['nimbus.host'] = node[:fqdn]
+if node['roles'].include?(node['storm']['nimbus']['nimbus_search_role'])
+  node.set['storm']['yaml']['nimbus.host'] = node['fqdn']
 else
   nimbus_node = search(
     :node,
     node['storm']['nimbus']['node_search_str'] +
     " AND chef_environment:#{node.chef_environment}"
   )
-  node.set['storm']['yaml']['nimbus.host'] = nimbus_node.first[:fqdn] if nimbus_node != []
+  node.set['storm']['yaml']['nimbus.host'] = nimbus_node.first['fqdn'] if nimbus_node != []
   fail('Nimbus host not found') if nimbus_node.empty?
 end
 
@@ -68,7 +70,7 @@ end
 zookeeper_quorum = search(
   :node,
   "#{node['storm']['zookeeper']['node_search_str']} AND " \
-  "chef_environment:#{node.chef_environment}").map { |n| n[:fqdn] }
+  "chef_environment:#{node.chef_environment}").map { |n| n['fqdn'] }
 
 fail 'zookeeper_quorum contains no servers.' if zookeeper_quorum.empty?
 
@@ -112,7 +114,7 @@ directory node['storm']['yaml']['storm.local.dir'] do
 end
 
 # download storm
-remote_file "#{Chef::Config[:file_cache_path]}/storm-#{node[:storm][:version]}.tar.gz" do
+remote_file "#{Chef::Config[:file_cache_path]}/storm-#{node['storm']['version']}.tar.gz" do
   source node['storm']['download_url']
   owner  'storm'
   group  'storm'
