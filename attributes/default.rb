@@ -7,6 +7,7 @@
 #
 
 default['storm']['version'] = "0.8.2"
+default['storm']['download_url'] = "https://dl.dropboxusercontent.com/s/fl4kr7w0oc8ihdw"
 default['storm']['root_dir'] = "/opt/storm"
 default['storm']['log_dir'] = "/var/log/storm"
 default['storm']['cluster_role'] = ""
