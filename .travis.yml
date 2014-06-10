@@ -16,7 +16,7 @@ before_install:
 script:
 - KITCHEN_LOG=debug bundle exec rake travis
 after_script:
-- bundle exec kitchen destroy
+- bundle exec rake integration:cloud_destroy
 notifications:
   slack: evertrue:aceK52JFVEqyEyA82bWk2GKY
 env:
