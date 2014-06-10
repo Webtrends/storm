@@ -65,7 +65,7 @@ namespace :integration do
 end
 
 desc 'Run all tests on Travis'
-task travis: ['style', 'integration:cloud']
+task travis: ['style', 'unit', 'integration:cloud']
 
 # Default
 task default: ['style', 'unit', 'integration:vagrant']
