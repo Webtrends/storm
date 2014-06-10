@@ -6,7 +6,7 @@ end
 
 group :test do
   gem 'berkshelf',  '~> 3.1'
-  gem 'chefspec',   '~> 3.4'
+  gem 'chefspec',   '~> 4.0'
   gem 'foodcritic', '~> 3.0'
   gem 'rubocop',    '~> 0.23'
 
