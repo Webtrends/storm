@@ -71,6 +71,7 @@ namespace :integration do
     config.instances.each do |instance|
       instance.destroy
     end
+  end
 end
 
 desc 'Run all tests on Travis'
