@@ -18,7 +18,8 @@ script:
 after_script:
 - bundle exec rake integration:cloud_destroy
 notifications:
-  slack: evertrue:aceK52JFVEqyEyA82bWk2GKY
+  slack:
+    secure: NHnSFaRm2CYHVzr+HFrS8NVtkP0Rtt/vTUdYH0C6hsLfjH/Cbj74MOKYnRcw6Izvrgi3UQ73M92OUUgltUQFIBoA4gIJXfgNKtS9NCxFYvXhnOMwkmrgVEZ5dUHc8a27bj89Mgc0UFhtCEobTm7Vi/taB/jVqu8jdexKbG5mi8o=
 env:
   global:
   - secure: Ynse3aE9Oq1Sr5hWBniLfZ05VpYZHD2ha6UoK+EPHWKTpuGs6lwKHvDoyj5ZPyQe941m4O2YN6Dd8D6qHoThJy/dW5eJv/z+Bqk2cYmBCM/PF9cXplh/cHGB/TGQN4ev1bknX4bGJKcFbyaSFIdg95apx25QhVS3SBMNvhrb3TU=
