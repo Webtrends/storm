@@ -11,8 +11,6 @@ before_install:
 - echo -n $DEPLOY_KEY_CHUNK_{0..30} >> ~/.ssh/id_rsa.base64
 - cat ~/.ssh/id_rsa.base64 | tr -d ' ' | base64 --decode > ~/.ssh/id_rsa
 - chmod 600 ~/.ssh/travis_ci_ec2.pem ~/encrypted_data_bag_secret ~/.ssh/id_rsa
-- bundle install
-- bundle exec berks install
 script:
 - KITCHEN_LOG=debug bundle exec rake travis
 after_script:
