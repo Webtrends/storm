@@ -22,7 +22,8 @@ suites:
   - role[zookeeper]
   driver_config:
     network:
-    - [ 'private_network', {ip: '192.168.33.10'}]
+    - - private_network
+      - ip: 192.168.33.10
   attributes:
     exhibitor:
       version: 1.5.2
@@ -34,17 +35,19 @@ suites:
   - recipe[apache_storm::supervisor]
   driver_config:
     network:
-    - [ 'private_network', {ip: '192.168.33.12'}]
+    - - private_network
+      - ip: 192.168.33.12
 - name: nimbus
-  run_list: 
+  run_list:
   - recipe[et_hostname]
   - recipe[apache_storm::nimbus]
   driver_config:
     network:
-    - [ 'private_network', {ip: '192.168.33.11'}]
+    - - private_network
+      - ip: 192.168.33.11
   attributes:
     et_hostname:
       addl_hosts_entries:
-        - '10.0.2.15 dev-storm-nimbus-1b.priv.evertrue.com dev-storm-nimbus-1b'
-        - '192.168.33.10 dev-zookeeper-1b.priv.evertrue.com dev-zookeeper 1b'
-        - '192.168.33.10 dev-storm-supervisor-1b.priv.evertrue.com dev-storm-supervisor-1b'
+      - 10.0.2.15 dev-storm-nimbus-1b.priv.evertrue.com dev-storm-nimbus-1b
+      - 192.168.33.10 dev-zookeeper-1b.priv.evertrue.com dev-zookeeper 1b
+      - 192.168.33.10 dev-storm-supervisor-1b.priv.evertrue.com dev-storm-supervisor-1b
