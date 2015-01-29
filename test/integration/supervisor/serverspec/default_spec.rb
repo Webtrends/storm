@@ -12,5 +12,5 @@ describe 'Storm Supervisor' do
 end
 
 describe command('pgrep java') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { is_expected.to eq 0 }
 end

@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe command('pgrep java') do
-  it { should return_exit_status 0 }
+  its(:exit_status) { is_expected.to eq 0 }
 end
 
 describe 'Storm Nimbus' do
@@ -22,9 +22,9 @@ describe 'Storm Nimbus' do
     expect(port(8080)).to be_listening.with('tcp6')
   end
 
-  it 'WebUI should contain string "Nimbus uptime"' do
-    expect(
-      command('wget -O - http://localhost:8080/')
-    ).to return_stdout(/Nimbus uptime/)
+  context 'WebUI should contain string "Nimbus uptime"' do
+    describe command('wget -O - http://localhost:8080/') do
+      its(:stdout) { is_expected.to match(/Nimbus uptime/) }
+    end
   end
 end
