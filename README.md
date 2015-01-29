@@ -40,7 +40,6 @@ environment will be included.
 #### Attributes you probably won't care about
 * `storm['version']` - Which storm version to install
 * `storm['download_url']` - The full download URL from which to grab the tarball
-* `storm['checksum']` - Checksum of the tarball
 * `storm['root_dir']` - Base directory of the storm install
 * `storm['log_dir']` - Log directory
 
