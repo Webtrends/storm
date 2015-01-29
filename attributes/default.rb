@@ -1,7 +1,6 @@
 default['storm']['version'] = '0.9.1-incubating'
 default['storm']['download_url'] =
-  'http://mirror.cogentco.com/pub/apache/incubator/storm/' \
-  'apache-storm-0.9.1-incubating/apache-storm-0.9.1-incubating.tar.gz'
+  'http://apache.mirrors.hoobly.com/storm/apache-storm-0.9.1-incubating/apache-storm-0.9.1-incubating.tar.gz'
 default['storm']['root_dir'] = '/opt/storm'
 default['storm']['log_dir'] = '/var/log/storm'
 default['storm']['cluster_role'] = ''
