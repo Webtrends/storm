@@ -13,6 +13,8 @@ install:
 - bundle exec berks install
 script:
 - bundle exec rake travis
+after_script:
+- bundle exec rake integration:cloud_destroy
 notifications:
   slack:
     secure: NHnSFaRm2CYHVzr+HFrS8NVtkP0Rtt/vTUdYH0C6hsLfjH/Cbj74MOKYnRcw6Izvrgi3UQ73M92OUUgltUQFIBoA4gIJXfgNKtS9NCxFYvXhnOMwkmrgVEZ5dUHc8a27bj89Mgc0UFhtCEobTm7Vi/taB/jVqu8jdexKbG5mi8o=
