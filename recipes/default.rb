@@ -36,9 +36,9 @@ end
 
 #locate the nimbus for this storm cluster
 if node.recipes.include?("storm::nimbus")
-  nimbus_host = node
+  node.set['storm']['yaml']['nimbus.host'] = node[:fqdn]
 else
-  nimbus_host = search(:node, "role:storm_nimbus AND role:#{node['storm']['cluster_role']} AND chef_environment:#{node.chef_environment}").first
+  node.set['storm']['yaml']['nimbus.host'] = search(:node, "role:storm_nimbus AND role:#{node['storm']['cluster_role']} AND chef_environment:#{node.chef_environment}").first
 end
 
 # search for zookeeper servers
@@ -65,13 +65,25 @@ link "/home/storm/.storm" do
 end 
 
 # setup directories
-%w{conf_dir local_dir log_dir install_dir bin_dir}.each do |name|
+%w(
+  conf_dir
+  log_dir
+  install_dir
+  bin_dir
+).each do |name|
   directory node['storm'][name] do
     owner "storm"
     group "storm"
     action :create
     recursive true
   end
+end
+
+directory node['storm']['yaml']['storm.local.dir'] do
+  owner 'storm'
+  group 'storm'
+  action :create
+  recursive true
 end
 
 # download storm
@@ -102,7 +114,6 @@ template "#{node['storm']['conf_dir']}/storm.yaml" do
   source "storm.yaml.erb"
   mode 00644
   variables(
-    :nimbus => nimbus_host,
     :zookeeper_quorum => zookeeper_quorum
   )
 end
