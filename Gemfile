@@ -11,6 +11,8 @@ group :test do
   gem 'rubocop',    '~> 0.23'
 
   gem 'test-kitchen',    '~> 1.3'
+  gem 'kitchen-ec2',
+      github: 'test-kitchen/kitchen-ec2',
+      tag: '12b7719'
   gem 'kitchen-vagrant', '~> 0.15'
-  gem 'kitchen-ec2',     '~> 0.8'
 end
