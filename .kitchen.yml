@@ -11,7 +11,7 @@ provisioner:
     environment: dev
 
 platforms:
-- name: ubuntu-12.04
+- name: ubuntu-14.04
 
 suites:
 - name: zookeeper1

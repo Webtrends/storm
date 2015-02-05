@@ -13,9 +13,9 @@ driver:
   interface: public
 
 platforms:
-- name: ubuntu-12.04
+- name: ubuntu-14.04
   driver_config:
-    image_id: ami-36aa4d5e
+    image_id: ami-44e9752c
     tags:
       Name: apache_storm-travis-default-ubuntu-1204
       Env: public
