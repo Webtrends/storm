@@ -17,7 +17,7 @@ platforms:
   driver_config:
     image_id: ami-36aa4d5e
     tags:
-      Name: travis-ci-default-ubuntu-1204
+      Name: apache_storm-travis-default-ubuntu-1204
       Env: public
 
 suites:
