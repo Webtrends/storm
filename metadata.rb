@@ -1,7 +1,7 @@
 name             'apache_storm'
 maintainer       'EverTrue, Inc.'
 maintainer_email 'devops@evertrue.com'
-license          'All rights reserved'
+license          'Apache v2.0'
 description      'Installs Twitter\'s Storm distributed computation system'
 version          '3.0.0'
 
