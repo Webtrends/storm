@@ -1,6 +1,6 @@
 default['storm']['nimbus']['nimbus_search_role'] = 'storm_nimbus'
-default['storm']['nimbus']['node_search_str'] = 'role:' +
-  node['storm']['nimbus']['nimbus_search_role']
+default['storm']['nimbus']['node_search_str'] =
+  "role:#{node['storm']['nimbus']['nimbus_search_role']}"
 
 default['storm']['yaml']['nimbus.thrift.port'] = 6627
 default['storm']['yaml']['nimbus.childopts'] = '-Xmx1024m'

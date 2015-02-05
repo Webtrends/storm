@@ -51,25 +51,9 @@ namespace :integration do
       Kitchen.logger = Kitchen.default_file_logger
       @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.cloud.yml')
       config = Kitchen::Config.new(loader: @loader)
-      config.instances.each do |instance|
-        instance.setup
-      end
-      config.instances.each do |instance|
-        instance.verify
-      end
-      config.instances.each do |instance|
-        instance.destroy
-      end
-    end
-  end
-
-  desc 'Destroy all cloud-based Test Kitchen nodes'
-  task :cloud_destroy do
-    Kitchen.logger = Kitchen.default_file_logger
-    @loader = Kitchen::Loader::YAML.new(project_config: './.kitchen.cloud.yml')
-    config = Kitchen::Config.new(loader: @loader)
-    config.instances.each do |instance|
-      instance.destroy
+      config.instances.each(&:setup)
+      config.instances.each(&:verify)
+      config.instances.each(&:destroy)
     end
   end
 end
