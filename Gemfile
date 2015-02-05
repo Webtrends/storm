@@ -14,5 +14,8 @@ group :test do
   gem 'kitchen-ec2',
       github: 'test-kitchen/kitchen-ec2',
       tag: '12b7719'
+end
+
+group :test, :vagrant do
   gem 'kitchen-vagrant', '~> 0.15'
 end
