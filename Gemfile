@@ -10,7 +10,7 @@ group :test do
   gem 'foodcritic', '~> 3.0'
   gem 'rubocop',    '~> 0.23'
 
-  gem 'test-kitchen',    '~> 1.2'
+  gem 'test-kitchen',    '~> 1.3'
   gem 'kitchen-vagrant', '~> 0.15'
   gem 'kitchen-ec2',     '~> 0.8'
 end
