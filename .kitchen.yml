@@ -25,6 +25,8 @@ suites:
     - - private_network
       - ip: 192.168.33.10
   attributes:
+    apt:
+      compile_time_update: true
     exhibitor:
       version: 1.5.2
     zookeeper:
