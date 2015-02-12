@@ -1,5 +1,17 @@
 # apache_storm CHANGELOG
 
+## v4.0.0
+
+* Create the Storm YAML config programmatically
+    - Much more flexible configuration, but potentially breaking
+* Consolidate logging to one directory
+    - Utilizes a symlink to do the dirty work. Kludge, but it works.
+* Get testing setup working
+    - Utilizes multiple test VMs, brought up in sequence and left running to interact
+    - Utilizes the `exhibitor` cookbook for a test Zookeeper node, similar to our production efforts
+    - Test using Ubuntu 14.04
+* Misc. cleanup
+
 ## v3.0.0
 
 * Add apt dependency
