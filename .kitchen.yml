@@ -48,6 +48,6 @@ suites:
   attributes:
     et_hostname:
       addl_hosts_entries:
-      - 10.0.2.15 dev-storm-nimbus-1b.priv.evertrue.com dev-storm-nimbus-1b
+      - 192.168.33.11 dev-storm-nimbus-1b.priv.evertrue.com dev-storm-nimbus-1b
       - 192.168.33.10 dev-zookeeper-1b.priv.evertrue.com dev-zookeeper 1b
-      - 192.168.33.10 dev-storm-supervisor-1b.priv.evertrue.com dev-storm-supervisor-1b
+      - 192.168.33.12 dev-storm-supervisor-1b.priv.evertrue.com dev-storm-supervisor-1b

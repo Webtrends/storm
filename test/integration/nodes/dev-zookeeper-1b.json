@@ -9,7 +9,7 @@
   ],
   "automatic": {
     "fqdn": "dev-zookeeper-1b.priv.evertrue.com",
-    "ipaddress": "10.99.111.224",
+    "ipaddress": "192.168.33.10",
     "recipes": [
       "apt::default",
       "exhibitor::default",
