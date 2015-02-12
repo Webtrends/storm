@@ -16,8 +16,9 @@ platforms:
 suites:
 - name: zookeeper1
   run_list:
-  - recipe[apt]
-  - recipe[zookeeper]
+  - recipe[apt::default]
+  - recipe[exhibitor::default]
+  - recipe[exhibitor::service]
   - role[zookeeper]
   driver_config:
     network:
