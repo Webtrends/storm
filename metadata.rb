@@ -3,7 +3,7 @@ maintainer       'EverTrue, Inc.'
 maintainer_email 'devops@evertrue.com'
 license          'All rights reserved'
 description      'Installs Twitter\'s Storm distributed computation system'
-version          '3.0.1'
+version          '4.0.1'
 
 depends          'git'
 depends          'java'
