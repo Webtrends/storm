@@ -3,8 +3,8 @@
   "chef_environment": "dev",
   "run_list": [
     "recipe[apt::default]",
-    "recipe[exhibitor::default]",
-    "recipe[exhibitor::service]",
+    "recipe[zookeeper::default]",
+    "recipe[zookeeper::service]",
     "role[zookeeper]"
   ],
   "automatic": {
@@ -12,8 +12,8 @@
     "ipaddress": "192.168.33.10",
     "recipes": [
       "apt::default",
-      "exhibitor::default",
-      "exhibitor::service"
+      "zookeeper::default",
+      "zookeeper::service"
     ],
     "roles": [
       "zookeeper"
