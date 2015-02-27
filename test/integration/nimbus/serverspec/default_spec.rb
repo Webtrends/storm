@@ -5,10 +5,13 @@ describe command('pgrep java') do
 end
 
 describe 'Storm Nimbus' do
-  # This only works with Nimbus running as well
-  # it 'is listening on port 6702' do
-  #   expect(port(6702)).to be_listening
-  # end
+  describe file '/opt/storm/current/logs' do
+    it { is_expected.to be_linked_to '/var/log/storm' }
+  end
+
+  it 'is listening on port 6702' do
+    expect(port(6702)).to be_listening
+  end
 
   it 'has a running service of nimbus' do
     expect(service('nimbus')).to be_running

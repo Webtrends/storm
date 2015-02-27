@@ -136,6 +136,12 @@ link "#{node['storm']['root_dir']}/current" do
   to node['storm']['install_dir']
 end
 
+# Ensure all of our logs end up in the same place
+# Logs by default go to $STORM_HOME/logs. This is configured in the logback/cluster.xml
+link "#{node['storm']['root_dir']}/current/logs" do
+  to node['storm']['log_dir']
+end
+
 # storm.yaml
 template "#{node['storm']['conf_dir']}/storm.yaml" do
   source 'storm.yaml.erb'
