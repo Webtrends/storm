@@ -1,3 +1,7 @@
+## 3.0.1
+
+* Update storm version to 0.9.3 and adjust tests accordingly
+
 ## 3.0.0
 
 * Add apt dependency
