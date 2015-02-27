@@ -1,7 +1,7 @@
-default['storm']['version'] = '0.9.1-incubating'
+default['storm']['version'] = '0.9.3'
 default['storm']['download_url'] =
-  'http://apache.mirrors.hoobly.com/storm/apache-storm-0.9.1-incubating/' \
-  'apache-storm-0.9.1-incubating.tar.gz'
+  'http://apache.mirrors.hoobly.com/storm/apache-storm-0.9.3/' \
+  'apache-storm-0.9.3.tar.gz'
 default['storm']['root_dir'] = '/opt/storm'
 default['storm']['log_dir'] = '/var/log/storm'
 default['storm']['cluster_role'] = ''

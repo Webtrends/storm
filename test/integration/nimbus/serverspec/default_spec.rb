@@ -23,8 +23,8 @@ describe 'Storm Nimbus' do
   end
 
   context 'WebUI should contain string "Nimbus uptime"' do
-    describe command('wget -O - http://localhost:8080/') do
-      its(:stdout) { is_expected.to match(/Nimbus uptime/) }
+    describe command('wget -O - http://localhost:8080/api/v1/cluster/summary') do
+      its(:stdout) { is_expected.to match(/nimbusUptime/) }
     end
   end
 end
