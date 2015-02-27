@@ -18,16 +18,15 @@ suites:
   run_list:
   - recipe[apt]
   - recipe[zookeeper]
+  - recipe[zookeeper::service]
   - role[zookeeper]
   driver_config:
     network:
     - - private_network
       - ip: 192.168.33.10
   attributes:
-    exhibitor:
-      version: 1.5.2
     zookeeper:
-      service_style: exhibitor
+      service_style: upstart
 - name: supervisor
   run_list:
   - recipe[apt]
