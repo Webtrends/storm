@@ -1,5 +1,9 @@
 # apache_storm CHANGELOG
 
+## v4.0.2
+
+* Update download URL
+
 ## v4.0.1
 
 * Update storm version to 0.9.3 and adjust tests accordingly
