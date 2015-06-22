@@ -1,6 +1,6 @@
 default['storm']['version'] = '0.9.3'
 default['storm']['download_url'] =
-  'http://apache.mirrors.hoobly.com/storm/apache-storm-0.9.3/' \
+  'http://apache.spinellicreations.com/storm/apache-storm-0.9.3/' \
   'apache-storm-0.9.3.tar.gz'
 default['storm']['root_dir'] = '/opt/storm'
 default['storm']['log_dir'] = '/var/log/storm'
