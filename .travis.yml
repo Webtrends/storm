@@ -1,0 +1,26 @@
+language: ruby
+bundler_args: "--without kitchen_vagrant"
+rvm:
+- 2.1
+before_install:
+- openssl aes-256-cbc -K $encrypted_3ab969986410_key -iv $encrypted_3ab969986410_iv
+  -in travis_ci_ec2.pem.enc -out ~/.ssh/travis_ci_ec2.pem -d
+- mkdir ~/.chef
+- echo 'node_name "trubot"' >> ~/.chef/knife.rb
+- chmod 600 ~/.chef/knife.rb ~/.ssh/travis_ci_ec2.pem
+install:
+- bundle install --without vagrant
+- bundle exec berks install
+script:
+- bundle exec rake travis
+after_script:
+- bundle exec rake integration:cloud_destroy
+notifications:
+  slack:
+    secure: NHnSFaRm2CYHVzr+HFrS8NVtkP0Rtt/vTUdYH0C6hsLfjH/Cbj74MOKYnRcw6Izvrgi3UQ73M92OUUgltUQFIBoA4gIJXfgNKtS9NCxFYvXhnOMwkmrgVEZ5dUHc8a27bj89Mgc0UFhtCEobTm7Vi/taB/jVqu8jdexKbG5mi8o=
+env:
+  global:
+  - secure: d9sH/dibcCQUqOpmsBiC6WvStAATYaWtFX5p7fT59akZXWpCv4Ou/+85ju+v6fEYWVOOQ+XlIWA0qcjN+Voq5xznU86QoRpIc3CrAOdMhTHyuc3L1tvdX08NmSOc77eocr96B0dwHa7Z6jZ8R5jv3IOhhijzLER0gBMd2SrQMVA=
+  - secure: UfvO1HrP/9GpEXiXRj6GBPhgwnPkbupVJItzWR1puKsp2TN9MKwJ+2bMBGYboqZGxVNeVtegK2n0rielp9GRHEGrMfbaGUtuoNCIX48/P1YfqjfoPtsxJT7vMBNHnl1tVeCRtoeyovc3uID+bQF33VPxwVMtVmMsOa1en638jAY=
+  - secure: eADn8KlN4z+gSdsTn1gUPylAqy/e4iIGdFoK6MQgJnrcFo2p6ZavMq336Cqic28DIzHtaWOpXPwQYGtduBogc0q42rnVbatDqY+SPdYmzKRZq5idKqzGaLyK4cbhJG7B2gFpQkfMq0h0Rvn1/l36zkKTdkfmqDdYU2Wd8fVFTAw=
+  - secure: Vt9Nertmhv9WIFHwX1qQs1NYNFvhnrOD/5pZQSuAE8OG0qNmZcfCzTGE34jHaXQuqn7tX/BvLaH8AHm0Ldnuy6vBZ9KyjHh/jIQqeymuMPrGIgeXDXaYSle86SZYh0eYu9cVbJbunfXW6LTgxSYpJwfMoy7gmcKAfDcp/5xRJs4=

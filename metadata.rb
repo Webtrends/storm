@@ -1,9 +1,13 @@
-name             'storm'
-maintainer       "Webtrends, Inc."
-maintainer_email "kendrick.martin@webtrends.com"
-license          "All rights reserved"
-description      "Installs Twitter's Storm distributed computation system"
-version          "1.2.5"
-depends          "java"
-depends          "runit"
-supports         "ubuntu"
+name             'apache_storm'
+maintainer       'EverTrue, Inc.'
+maintainer_email 'devops@evertrue.com'
+license          'All rights reserved'
+description      'Installs Twitter\'s Storm distributed computation system'
+version          '4.0.2'
+
+depends          'git'
+depends          'java'
+depends          'runit'
+depends          'apt'
+
+supports         'ubuntu'

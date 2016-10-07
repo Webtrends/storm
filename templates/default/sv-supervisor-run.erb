@@ -1,3 +1,4 @@
 #!/bin/sh
+ulimit -n <%= node['storm']['supervisor']['fdlimit'] %>
 exec 2>&1 
 exec chpst -u <%=@options[:user]%> <%=@options[:install_dir]%>/bin/supervisor-control start

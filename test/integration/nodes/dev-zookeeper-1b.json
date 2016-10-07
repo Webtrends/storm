@@ -1,0 +1,22 @@
+{
+  "name": "dev-zookeeper-1b",
+  "chef_environment": "dev",
+  "run_list": [
+    "recipe[apt::default]",
+    "recipe[zookeeper::default]",
+    "recipe[zookeeper::service]",
+    "role[zookeeper]"
+  ],
+  "automatic": {
+    "fqdn": "dev-zookeeper-1b.priv.evertrue.com",
+    "ipaddress": "192.168.33.10",
+    "recipes": [
+      "apt::default",
+      "zookeeper::default",
+      "zookeeper::service"
+    ],
+    "roles": [
+      "zookeeper"
+    ]
+  }
+}

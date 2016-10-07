@@ -1,0 +1,58 @@
+---
+driver:
+  name: ec2
+  aws_access_key_id: <%= ENV['AWS_ACCESS_KEY_ID'] %>
+  aws_secret_access_key: <%= ENV['AWS_SECRET_ACCESS_KEY'] %>
+  aws_ssh_key_id: <%= ENV['AWS_KEYPAIR_NAME'] %>
+  ssh_key: <%= ENV['EC2_SSH_KEY_PATH'] %>
+  region: us-east-1
+  availability_zone: us-east-1b
+  security_group_ids: ['ci-testing']
+  username: ubuntu
+  flavor_id: c3.large
+  interface: public
+
+platforms:
+- name: ubuntu-14.04
+  driver_config:
+    image_id: ami-44e9752c
+    tags:
+      Name: apache_storm-travis-default-ubuntu-1204
+      Env: public
+
+suites:
+- name: zookeeper1
+  run_list:
+  - recipe[apt]
+  - recipe[zookeeper]
+  - role[zookeeper]
+  driver_config:
+    network:
+    - - private_network
+      - ip: 192.168.33.10
+  attributes:
+    exhibitor:
+      opts:
+        configtype: file
+- name: supervisor
+  run_list:
+  - recipe[apt]
+  - recipe[apache_storm::supervisor]
+  driver_config:
+    network:
+    - - private_network
+      - ip: 192.168.33.12
+- name: nimbus
+  run_list:
+  - recipe[et_hostname]
+  - recipe[apache_storm::nimbus]
+  driver_config:
+    network:
+    - - private_network
+      - ip: 192.168.33.11
+  attributes:
+    et_hostname:
+      addl_hosts_entries:
+        - '10.0.2.15 dev-storm-nimbus-1b.priv.evertrue.com dev-storm-nimbus-1b'
+        - '192.168.33.10 dev-zookeeper-1b.priv.evertrue.com dev-zookeeper 1b'
+        - '192.168.33.10 dev-storm-supervisor-1b.priv.evertrue.com dev-storm-supervisor-1b'

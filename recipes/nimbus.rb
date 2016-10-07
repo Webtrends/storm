@@ -1,8 +1,8 @@
 #
-# Cookbook Name:: storm
-# Recipe:: default
+# Cookbook Name:: apache_storm
+# Recipe:: nimbus
 #
-# Copyright 2012, Webtrends, Inc.
+# Copyright 2014, EverTrue, Inc.
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -16,34 +16,37 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-include_recipe "storm"
+include_recipe 'apache_storm'
 
 java_home = node['java']['java_home']
 
-%w{nimbus stormui}.each do |daemon|
+%w(nimbus stormui).each do |daemon|
   # control file
   template "#{node['storm']['install_dir']}/bin/#{daemon}-control" do
     source  "#{daemon}-control.erb"
-    owner "root"
-    group "root"
+    owner 'root'
+    group 'root'
     mode  00755
-    variables({
-      :install_dir => node['storm']['install_dir'],
-      :log_dir => node['storm']['log_dir'],
-      :java_home => java_home
-    })
+    variables(
+      install_dir: node['storm']['install_dir'],
+      log_dir: node['storm']['log_dir'],
+      java_home: java_home
+    )
   end
 
   # runit service
   runit_service daemon do
-    options({
-      :install_dir => node['storm']['install_dir'],
-      :log_dir => node['storm']['log_dir'],
-      :user => "storm"
-    })
+    options(
+      install_dir: node['storm']['install_dir'],
+      log_dir: node['storm']['log_dir'],
+      user: 'storm'
+    )
   end
 end
 
-service "nimbus"
+service 'nimbus'
+service 'stormui'
 
-service "stormui"
+t = resources(template: "#{node['storm']['conf_dir']}/storm.yaml")
+t.notifies :restart, 'service[nimbus]'
+t.notifies :restart, 'service[stormui]'

@@ -1,0 +1,51 @@
+---
+driver:
+  name: vagrant
+  customize:
+    cpus: 4
+    memory: 1024
+
+provisioner:
+  name: chef_zero
+  client_rb:
+    environment: dev
+
+platforms:
+- name: ubuntu-14.04
+
+suites:
+- name: zookeeper1
+  run_list:
+  - recipe[apt]
+  - recipe[zookeeper]
+  - recipe[zookeeper::service]
+  - role[zookeeper]
+  driver_config:
+    network:
+    - - private_network
+      - ip: 192.168.33.10
+  attributes:
+    zookeeper:
+      service_style: upstart
+- name: supervisor
+  run_list:
+  - recipe[apt]
+  - recipe[apache_storm::supervisor]
+  driver_config:
+    network:
+    - - private_network
+      - ip: 192.168.33.12
+- name: nimbus
+  run_list:
+  - recipe[et_hostname]
+  - recipe[apache_storm::nimbus]
+  driver_config:
+    network:
+    - - private_network
+      - ip: 192.168.33.11
+  attributes:
+    et_hostname:
+      addl_hosts_entries:
+      - 192.168.33.11 dev-storm-nimbus-1b.priv.evertrue.com dev-storm-nimbus-1b
+      - 192.168.33.10 dev-zookeeper-1b.priv.evertrue.com dev-zookeeper 1b
+      - 192.168.33.12 dev-storm-supervisor-1b.priv.evertrue.com dev-storm-supervisor-1b
